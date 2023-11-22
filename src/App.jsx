@@ -25,22 +25,28 @@ export default function App() {
     });
   };
 
-  const visiteur = () => {
-    //appel api 
-    if (localStorage.getItem("visiteur") === null) {
-      localStorage.setItem("visiteur", 1);
-    }
-    else {
-      localStorage.setItem("visiteur", parseInt(localStorage.getItem("visiteur")) + 1);
-    }
-  }
+  const functionApi= ""
 
+  const getVisitorCount = async () => {
+    let count=0;
+    fetch(functionApi).then((response) => {
+      count = response.json();
+    }
+    ).then((data) => {
+      console.log('data received');
+      count = data.count;
+    }
+    ).catch((error) => {
+      console.log(error);
+    }
+    );
   const resetStyle = () => {
     setStyle({
       transform: `rotateY(0deg) rotateX(0deg)`,
       transition: "transform 1s",
     });
   };
+}
 
   return (
     <>
@@ -272,9 +278,10 @@ export default function App() {
         </main>
         <footer className="flex justify-center items-center w-full h-16 text-xs text-slate-300 ">
           Designed and developed by Houamed Tarek
-          <p>Vous etes le {visiteur()} visiteur</p>
+          <p>Vous etes le {getVisitorCount} visiteur</p>
         </footer>
       </body>
     </>
   );
 }
+
